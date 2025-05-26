@@ -1,15 +1,55 @@
+import { getFeedOrdersSelector, getIngredientsSelector } from '@selectors';
+import { fetchFeedOrders, fetchIngredients } from '@slices';
+import { useDispatch, useSelector } from '@store';
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
-import { FC } from 'react';
+import { FC, useEffect, useCallback, useMemo } from 'react';
 
 export const Feed: FC = () => {
-  /** TODO: взять переменную из стора */
-  const orders: TOrder[] = [];
+  const dispatch = useDispatch();
+  const { items: orders, loading: isFeedLoading } = useSelector(
+    getFeedOrdersSelector
+  );
+  const { items: ingredients, loading: isIngredientsLoading } = useSelector(
+    getIngredientsSelector
+  );
 
-  if (!orders.length) {
+  const isLoading = useMemo(
+    () => isFeedLoading || isIngredientsLoading,
+    [isFeedLoading, isIngredientsLoading]
+  );
+
+  const loadData = useCallback(async () => {
+    const loadPromises: Promise<any>[] = [];
+
+    if (!ingredients.length && !isIngredientsLoading) {
+      loadPromises.push(dispatch(fetchIngredients()));
+    }
+    if (!orders.length && !isFeedLoading) {
+      loadPromises.push(dispatch(fetchFeedOrders()));
+    }
+
+    await Promise.all(loadPromises);
+  }, [
+    dispatch,
+    ingredients.length,
+    orders.length,
+    isIngredientsLoading,
+    isFeedLoading
+  ]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const handleRefresh = useCallback(async () => {
+    await dispatch(fetchFeedOrders());
+  }, [dispatch]);
+
+  if (isLoading) {
     return <Preloader />;
   }
 
-  <FeedUI orders={orders} handleGetFeeds={() => {}} />;
+  return <FeedUI orders={orders} handleGetFeeds={handleRefresh} />;
 };
