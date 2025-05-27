@@ -23,9 +23,6 @@ export const ProfileOrders: FC = () => {
   const loadData = useCallback(async () => {
     const loadPromises: Promise<any>[] = [];
 
-    if (!ingredients.length && !isIngredientsLoading) {
-      loadPromises.push(dispatch(fetchIngredients()));
-    }
     if (!orders.length && !isOrdersLoading) {
       loadPromises.push(dispatch(fetchProfileOrders()));
     }

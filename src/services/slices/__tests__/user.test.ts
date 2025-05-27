@@ -5,7 +5,8 @@ import reducer, {
   loginUser,
   logoutUser,
   fetchUser,
-  updateUser
+  updateUser,
+  initialState
 } from '../user';
 
 import { TUser } from '@utils-types';
@@ -16,14 +17,6 @@ const user: TUser = {
 };
 
 describe('тестирование слайса пользователей', () => {
-  const initialState = {
-    isAuthChecked: false,
-    isAuthenticated: false,
-    data: null,
-    isUserRequest: false,
-    userRequestError: null
-  };
-
   const initialLoadedState = {
     isAuthChecked: true,
     isAuthenticated: true,

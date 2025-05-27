@@ -8,19 +8,12 @@ import { Modal } from '../modal';
 import { fetchIngredients } from '@slices';
 
 export const IngredientDetails: FC = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { id } = useParams<{ id: string }>();
   const { items, loading } = useSelector(getIngredientsSelector);
 
   let ingredientData = items.find((ingredient) => ingredient._id == id);
-
-  useEffect(() => {
-    if (!ingredientData && !loading) {
-      dispatch(fetchIngredients());
-    }
-  }, []);
 
   useEffect(() => {
     ingredientData = items.find((ingredient) => ingredient._id == id);

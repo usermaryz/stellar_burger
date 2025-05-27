@@ -1,7 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import reducer, {
   fetchIngredients,
-  getIngredientsSelector
+  getIngredientsSelector,
+  initialState
 } from '../ingredients';
 
 import { TIngredient } from '@utils-types';
@@ -37,12 +38,6 @@ const ingredient_2: TIngredient = {
 const someIngredients = [ingredient_1, ingredient_2];
 
 describe('тестирование слайса ингредиентов', () => {
-  const initialState = {
-    items: [],
-    loading: false,
-    error: null
-  };
-
   const initialLoadedState = {
     items: [ingredient_1, ingredient_2],
     loading: false,

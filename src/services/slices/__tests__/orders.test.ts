@@ -4,7 +4,8 @@ import reducer, {
   getFeedOrdersSelector,
   getProfileOrdersSelector,
   fetchProfileOrders,
-  fetchFeedOrders
+  fetchFeedOrders,
+  initialState
 } from '../orders';
 
 import { TOrder } from '@utils-types';
@@ -54,21 +55,6 @@ const someProfileOrders = [order_2, order_3];
 const someFeedOrders = [order_1, order_2];
 
 describe('тестирование слайса заказов', () => {
-  const initialState = {
-    profile: {
-      items: [],
-      loading: false,
-      error: null
-    },
-    feed: {
-      items: [],
-      total: null,
-      totalToday: null,
-      loading: false,
-      error: null
-    }
-  };
-
   const initialLoadedState = {
     profile: {
       items: someProfileOrders,

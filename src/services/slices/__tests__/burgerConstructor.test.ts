@@ -9,7 +9,7 @@ import reducer, {
   clearConstructor,
   getBurgerConstructorSelector
 } from '../burgerConstructor';
-import { submitOrder } from '../burgerConstructor';
+import { initialState, submitOrder } from '../burgerConstructor';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 
 jest.mock('uuid', () => ({
@@ -55,14 +55,6 @@ const order: TOrder = {
 };
 
 describe('тестирование слайса конструктора бургера', () => {
-  const initialState = {
-    bun: null,
-    ingredients: [],
-    orderData: null,
-    orderRequest: false,
-    orderError: null
-  };
-
   const initialLoadedState = {
     bun: bun,
     ingredients: [{ ...ingredient, _id: uuid_v4() } as TConstructorIngredient],

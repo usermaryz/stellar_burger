@@ -41,9 +41,6 @@ export const OrderInfo: FC = () => {
   const loadData = useCallback(async () => {
     const loadPromises: Promise<any>[] = [];
 
-    if (!ingredients.length && !ingredientsLoading) {
-      loadPromises.push(dispatch(fetchIngredients()));
-    }
     if (!orderData) {
       if (!feed.items.length && !feed.loading) {
         loadPromises.push(dispatch(fetchFeedOrders()));

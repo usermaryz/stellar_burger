@@ -15,12 +15,6 @@ export const ConstructorPage: FC = () => {
   const ingredients = ingredientsState.items;
   const isIngredientsLoading = ingredientsState.loading;
 
-  useEffect(() => {
-    if (!ingredients.length && !isIngredientsLoading) {
-      dispatch(fetchIngredients());
-    }
-  }, []);
-
   return (
     <>
       {isIngredientsLoading ? (
